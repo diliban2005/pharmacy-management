@@ -5,10 +5,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        void: {
+          950: '#070A10',
+          900: '#0B0F19',
+          850: '#0E1524',
+          800: '#121C30',
+          700: '#1A2742',
+        },
+        cyber: {
+          emerald: '#00F5A0',
+          cyan: '#00D9F6',
+          teal: '#00C9A7',
+          neon: '#10B981',
+        },
         primary: {
-          DEFAULT: '#059669',
-          light: '#10b981',
-          dark: '#047857',
+          DEFAULT: '#00F5A0',
+          light: '#34d399',
+          dark: '#059669',
         },
         emerald: {
           50: '#ecfdf5',
@@ -21,6 +34,7 @@ module.exports = {
           700: '#047857',
           800: '#065f46',
           900: '#064e3b',
+          950: '#022c22',
         },
         sapphire: {
           50: '#f0f7ff',
@@ -69,19 +83,26 @@ module.exports = {
         mono: ['JetBrains Mono', 'monospace'],
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(15, 23, 42, 0.08)',
-        'glass-lg': '0 20px 40px -15px rgba(15, 23, 42, 0.12)',
-        'glow-emerald': '0 0 20px -5px rgba(5, 150, 105, 0.4)',
-        'glow-cyan': '0 0 20px -5px rgba(6, 182, 212, 0.4)',
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+        'glass-lg': '0 20px 50px rgba(0, 0, 0, 0.5)',
+        'glow-emerald': '0 0 25px -3px rgba(0, 245, 160, 0.45)',
+        'glow-cyan': '0 0 25px -3px rgba(0, 217, 246, 0.45)',
+        'glow-crimson': '0 0 25px -3px rgba(239, 68, 68, 0.45)',
+        'cyber-border': '0 0 15px rgba(0, 245, 160, 0.25), inset 0 0 15px rgba(0, 245, 160, 0.1)',
       },
       backdropBlur: {
         xs: '2px',
+        '2xl': '24px',
+        '3xl': '40px',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fade-in': 'fadeIn 0.25s ease-out forwards',
         'slide-up': 'slideUp 0.3s ease-out forwards',
         'slide-in-right': 'slideInRight 0.3s ease-out forwards',
+        'laser-sweep': 'laserSweep 2s ease-in-out infinite alternate',
+        'scanline': 'scanline 8s linear infinite',
+        'float-slow': 'floatSlow 4s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -89,12 +110,25 @@ module.exports = {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideInRight: {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0)' },
+        },
+        laserSweep: {
+          '0%': { top: '5%', opacity: '0.85' },
+          '50%': { opacity: '1' },
+          '100%': { top: '92%', opacity: '0.85' },
+        },
+        scanline: {
+          '0%': { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '0 100%' },
+        },
+        floatSlow: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-8px)' },
         },
       },
     },

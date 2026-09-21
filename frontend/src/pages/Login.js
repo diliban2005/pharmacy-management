@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import TiltCard from '../components/common/TiltCard';
+import TrailingCursor from '../components/common/TrailingCursor';
+import SoundFX from '../utils/SoundFX';
 
 export default function Login() {
   const [roleTab, setRoleTab] = useState('staff'); // 'staff' | 'customer'
@@ -11,6 +14,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleTabChange = (tab) => {
+    SoundFX.playClick();
     setRoleTab(tab);
     setError('');
     if (tab === 'staff') {
@@ -24,17 +28,16 @@ export default function Login() {
     e.preventDefault();
     setError('');
     setLoading(true);
+    SoundFX.playClick();
 
     try {
       if (roleTab === 'staff') {
         const data = await loginStaff(form.email, form.password);
-        if (data.user?.role === 'admin' || data.user?.role === 'pharmacist') {
-          navigate('/dashboard');
-        } else {
-          navigate('/dashboard');
-        }
+        SoundFX.playSuccess();
+        navigate('/dashboard');
       } else {
         await loginCustomer(form.email, form.password);
+        SoundFX.playSuccess();
         navigate('/customer/dashboard');
       }
     } catch (err) {
@@ -45,80 +48,82 @@ export default function Login() {
   };
 
   return (
-    <div
-      className="min-h-screen flex"
-      style={{ background: 'linear-gradient(135deg, #0f172a 0%, #115e59 100%)' }}
-    >
+    <div className="min-h-screen flex cyber-grid-bg text-slate-100 relative selection:bg-cyber-emerald selection:text-void-950">
+      <TrailingCursor />
+
       {/* Left panel */}
-      <div className="hidden lg:flex flex-col justify-center px-16 w-1/2 text-white">
-        <div className="w-16 h-16 rounded-2xl bg-teal-500 flex items-center justify-center text-3xl font-black mb-8 shadow-lg">
+      <div className="hidden lg:flex flex-col justify-center px-16 w-1/2 text-white z-10">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyber-emerald to-cyber-cyan flex items-center justify-center text-3xl font-black mb-8 shadow-glow-emerald text-void-950">
           Rx
         </div>
         <h1 className="text-5xl font-black leading-tight mb-4">
           PharmaCare<br />
-          <span className="text-teal-400">AI-Smart Pharmacy</span>
+          <span className="text-cyber-emerald">Cyber-Spatial Pharmacy</span>
         </h1>
         <p className="text-slate-300 text-lg mb-10 max-w-md leading-relaxed">
-          AI-assisted handwritten prescription recognition, real-time inventory matching, pharmacist-in-the-loop verification, and automated billing.
+          AI-assisted handwritten prescription recognition, real-time inventory node matching, pharmacist verification, and holographic POS billing.
         </p>
 
         <div className="grid grid-cols-2 gap-4 max-w-md">
           {[
-            ['✍️', 'Handwritten Vision AI'],
-            ['💊', 'Drug Knowledge Base'],
-            ['⚖️', 'Fairness-by-Design'],
-            ['🧾', 'Integrated Billing'],
+            ['✍️', 'Laser Multimodal Vision'],
+            ['💊', '3D Node Inventory'],
+            ['⚖️', 'CDSCO & HIPAA Safe'],
+            ['🧾', 'Holographic POS'],
           ].map(([icon, label]) => (
             <div
               key={label}
-              className="flex items-center gap-3 bg-white/10 rounded-2xl px-4 py-3.5 backdrop-blur-sm border border-white/10"
+              className="flex items-center gap-3 bg-void-900/80 rounded-2xl px-4 py-3.5 backdrop-blur-md border border-emerald-500/20 shadow-glass"
             >
               <span className="text-2xl">{icon}</span>
-              <span className="text-sm font-semibold">{label}</span>
+              <span className="text-sm font-semibold text-white">{label}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Right panel */}
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 sm:p-10 w-full max-w-md animate-fade-in">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8 z-10">
+        <TiltCard
+          maxTilt={6}
+          className="cyber-card p-8 sm:p-10 w-full max-w-md animate-fade-in border border-cyber-emerald/40 bg-void-900/95 shadow-glass-lg"
+        >
           <div className="text-center mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-teal-600 flex items-center justify-center text-white text-2xl font-black mx-auto mb-4 lg:hidden shadow-md">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyber-emerald to-cyber-cyan flex items-center justify-center text-void-950 text-2xl font-black mx-auto mb-4 lg:hidden shadow-glow-emerald">
               Rx
             </div>
-            <h2 className="text-2xl font-black text-slate-900">Welcome to PharmaCare</h2>
-            <p className="text-slate-500 text-xs sm:text-sm mt-1">Select your portal to continue</p>
+            <h2 className="text-2xl font-black text-white">Welcome to PharmaCare</h2>
+            <p className="text-slate-400 text-xs sm:text-sm mt-1">Select your portal to continue</p>
           </div>
 
           {/* Role Tabs */}
-          <div className="flex rounded-2xl bg-slate-100 p-1 mb-6">
+          <div className="flex rounded-2xl bg-void-950 p-1 mb-6 border border-slate-800">
             <button
               type="button"
               onClick={() => handleTabChange('staff')}
               className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 roleTab === 'staff'
-                  ? 'bg-white text-teal-800 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-800'
+                  ? 'bg-cyber-emerald text-void-950 font-black shadow-glow-emerald'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
-              💊 Staff (Pharmacist / Admin)
+              💊 Staff Terminal
             </button>
             <button
               type="button"
               onClick={() => handleTabChange('customer')}
               className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 roleTab === 'customer'
-                  ? 'bg-white text-teal-800 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-800'
+                  ? 'bg-cyber-cyan text-void-950 font-black shadow-glow-cyan'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
-              👤 Customer Portal
+              👤 Patient Portal
             </button>
           </div>
 
           {error && (
-            <div className="bg-rose-50 text-rose-700 border border-rose-200 rounded-xl px-4 py-3 text-xs font-semibold mb-5 flex items-center gap-2">
+            <div className="bg-rose-950/80 text-rose-300 border border-rose-500/50 rounded-xl px-4 py-3 text-xs font-semibold mb-5 flex items-center gap-2">
               <span>⚠️</span>
               <span>{error}</span>
             </div>
@@ -126,8 +131,8 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
-                {roleTab === 'staff' ? 'Staff Email' : 'Customer Email'}
+              <label className="text-xs font-mono font-bold text-slate-300 block mb-1">
+                {roleTab === 'staff' ? 'Staff Email' : 'Patient Email'}
               </label>
               <input
                 type="email"
@@ -138,7 +143,7 @@ export default function Login() {
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">Password</label>
+              <label className="text-xs font-mono font-bold text-slate-300 block mb-1">Password</label>
               <input
                 type="password"
                 value={form.password}
@@ -150,119 +155,32 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary w-full py-3.5 rounded-xl font-bold text-sm shadow-md disabled:opacity-60 disabled:cursor-not-allowed transition-all mt-2"
+              className="btn-primary w-full py-3.5 rounded-xl font-black text-sm shadow-glow-emerald disabled:opacity-60 disabled:cursor-not-allowed transition-all mt-2"
             >
               {loading
                 ? 'Authenticating...'
                 : roleTab === 'staff'
                 ? 'Sign In to Staff Dashboard →'
-                : 'Sign In to Customer Portal →'}
+                : 'Sign In to Patient Portal →'}
             </button>
           </form>
 
-          {/* Quick Demo Selector */}
-          <div className="mt-6 p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="font-bold text-slate-800">⚡ 1-Click Demo Login:</span>
-              <span className="text-[10px] text-slate-400">Click to fill & test</span>
-            </div>
-
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setRoleTab('staff');
-                  setForm({ email: 'john@pharmacy.com', password: 'john123' });
-                }}
-                className={`p-2 rounded-xl border text-center transition-all ${
-                  form.email === 'john@pharmacy.com'
-                    ? 'border-teal-500 bg-teal-50 text-teal-800 font-bold'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-teal-300'
-                }`}
-              >
-                <span className="text-base block mb-0.5">💊</span>
-                <span className="text-[11px] font-bold block">Pharmacist</span>
-                <span className="text-[9px] text-slate-400 block font-normal">Dispensary</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setRoleTab('customer');
-                  setForm({ email: 'ramesh@gmail.com', password: 'customer123' });
-                }}
-                className={`p-2 rounded-xl border text-center transition-all ${
-                  form.email === 'ramesh@gmail.com'
-                    ? 'border-teal-500 bg-teal-50 text-teal-800 font-bold'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-teal-300'
-                }`}
-              >
-                <span className="text-base block mb-0.5">👤</span>
-                <span className="text-[11px] font-bold block">Customer</span>
-                <span className="text-[9px] text-slate-400 block font-normal">Patient Portal</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setRoleTab('staff');
-                  setForm({ email: 'admin@pharmacy.com', password: 'admin123' });
-                }}
-                className={`p-2 rounded-xl border text-center transition-all ${
-                  form.email === 'admin@pharmacy.com'
-                    ? 'border-purple-500 bg-purple-50 text-purple-800 font-bold'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-purple-300'
-                }`}
-              >
-                <span className="text-base block mb-0.5">👑</span>
-                <span className="text-[11px] font-bold block">Admin</span>
-                <span className="text-[9px] text-slate-400 block font-normal">Management</span>
-              </button>
-            </div>
-
-            {/* Explanatory description of active role */}
-            <p className="text-[11px] text-slate-500 leading-relaxed bg-white p-2 rounded-lg border border-slate-100">
-              {form.email === 'john@pharmacy.com' && (
-                <>
-                  <strong className="text-teal-700">Pharmacist Role:</strong> Inspects uploaded doctor handwriting, verifies AI medicine matches against stock, and dispenses medication.
-                </>
-              )}
-              {form.email === 'ramesh@gmail.com' && (
-                <>
-                  <strong className="text-blue-700">Customer Role:</strong> Uploads prescription photos/PDFs, tracks live status timeline, and accesses printable receipts.
-                </>
-              )}
-              {form.email === 'admin@pharmacy.com' && (
-                <>
-                  <strong className="text-purple-700">Admin Role:</strong> Manages pharmacist accounts, medicine inventory, sales analytics, and fairness audit logs.
-                </>
-              )}
-            </p>
-          </div>
-
-          {/* Footer link for customer registration */}
-          <div className="mt-6 text-center text-xs text-slate-500">
-            {roleTab === 'customer' ? (
-              <p>
-                Don't have an account?{' '}
-                <Link to="/customer/register" className="text-teal-600 font-bold hover:underline">
-                  Register as a new customer →
-                </Link>
-              </p>
+          {/* Quick Demo Credentials helper */}
+          <div className="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-400 font-mono space-y-1">
+            <p className="font-bold text-cyber-emerald">Demo Credentials:</p>
+            {roleTab === 'staff' ? (
+              <p>Pharmacist: <span className="text-white">john@pharmacy.com</span> / <span className="text-white">john123</span></p>
             ) : (
-              <p>
-                Patient or Customer?{' '}
-                <button
-                  type="button"
-                  onClick={() => handleTabChange('customer')}
-                  className="text-teal-600 font-bold hover:underline"
-                >
-                  Switch to Customer Portal →
-                </button>
-              </p>
+              <p>Patient: <span className="text-white">ramesh@gmail.com</span> / <span className="text-white">customer123</span></p>
             )}
           </div>
-        </div>
+
+          <div className="mt-4 text-center">
+            <Link to="/" className="text-xs font-mono text-slate-400 hover:text-cyber-emerald hover:underline">
+              ← Return to Public Landing Page
+            </Link>
+          </div>
+        </TiltCard>
       </div>
     </div>
   );
