@@ -1,0 +1,490 @@
+[
+  {
+    "_id": "6aac0520aeb92f665744fcd8",
+    "name": "Paracetamol 500mg",
+    "genericName": "Paracetamol",
+    "brandName": "Dolo 500",
+    "strength": "500mg",
+    "dosageForm": "Tablet",
+    "activeIngredients": [
+      "Paracetamol"
+    ],
+    "aliases": [
+      "PCM",
+      "Paracet",
+      "Acetaminophen",
+      "Dolo",
+      "Calpol"
+    ],
+    "commonMisspellings": [
+      "paracetmol",
+      "paracetemol",
+      "pcm 500",
+      "paracitamol"
+    ],
+    "searchableNames": [
+      "paracetamol 500",
+      "pcm",
+      "dolo",
+      "acetaminophen"
+    ],
+    "manufacturer": "GSK",
+    "category": "Tablet",
+    "batchNumber": "B-PCM-01",
+    "expiryDate": "2027-12-31T00:00:00.000Z",
+    "purchasePrice": 2,
+    "sellingPrice": 5,
+    "quantity": 440,
+    "lowStockThreshold": 50,
+    "description": "Analgesic and antipyretic medication for pain relief and fever.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.216Z",
+    "updatedAt": "2026-09-17T17:50:40.884Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0520aeb92f665744fcd9",
+    "name": "Amoxicillin 250mg",
+    "genericName": "Amoxicillin",
+    "brandName": "Mox 250",
+    "strength": "250mg",
+    "dosageForm": "Capsule",
+    "activeIngredients": [
+      "Amoxicillin Trihydrate"
+    ],
+    "aliases": [
+      "Amox",
+      "Amoxil",
+      "Amoxycillin"
+    ],
+    "commonMisspellings": [
+      "amoxilin",
+      "amoxy",
+      "amox... 500",
+      "amoxil 250"
+    ],
+    "searchableNames": [
+      "amoxicillin",
+      "amoxil",
+      "amox 250"
+    ],
+    "manufacturer": "Cipla",
+    "category": "Capsule",
+    "batchNumber": "B-AMX-02",
+    "expiryDate": "2026-08-30T00:00:00.000Z",
+    "purchasePrice": 8,
+    "sellingPrice": 15,
+    "quantity": 165,
+    "lowStockThreshold": 30,
+    "description": "Broad-spectrum beta-lactam antibiotic.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.216Z",
+    "updatedAt": "2026-09-17T17:50:40.887Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0520aeb92f665744fcda",
+    "name": "Amoxicillin 500mg",
+    "genericName": "Amoxicillin",
+    "brandName": "Augmentin-AMX",
+    "strength": "500mg",
+    "dosageForm": "Capsule",
+    "activeIngredients": [
+      "Amoxicillin Trihydrate"
+    ],
+    "aliases": [
+      "Amox 500",
+      "Amoxil 500",
+      "Amoxy 500"
+    ],
+    "commonMisspellings": [
+      "amoxilin 500",
+      "amox... 500"
+    ],
+    "searchableNames": [
+      "amoxicillin 500",
+      "amox 500"
+    ],
+    "manufacturer": "Cipla",
+    "category": "Capsule",
+    "batchNumber": "B-AMX-05",
+    "expiryDate": "2026-11-15T00:00:00.000Z",
+    "purchasePrice": 14,
+    "sellingPrice": 26,
+    "quantity": 120,
+    "lowStockThreshold": 25,
+    "description": "High-strength antibiotic for acute bacterial infections.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.216Z",
+    "updatedAt": "2026-09-17T15:20:00.216Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0520aeb92f665744fcdb",
+    "name": "Cetirizine 10mg",
+    "genericName": "Cetirizine Dihydrochloride",
+    "brandName": "Cetzine",
+    "strength": "10mg",
+    "dosageForm": "Tablet",
+    "activeIngredients": [
+      "Cetirizine Dihydrochloride"
+    ],
+    "aliases": [
+      "Cetzine",
+      "Alerid",
+      "Zyrtec",
+      "Cetriz"
+    ],
+    "commonMisspellings": [
+      "cetrizine",
+      "ceterizine",
+      "citrizine"
+    ],
+    "searchableNames": [
+      "cetirizine",
+      "cetzine",
+      "alerid"
+    ],
+    "manufacturer": "Dr. Reddy",
+    "category": "Tablet",
+    "batchNumber": "B-CTZ-04",
+    "expiryDate": "2026-09-20T00:00:00.000Z",
+    "purchasePrice": 1.5,
+    "sellingPrice": 4,
+    "quantity": 317,
+    "lowStockThreshold": 40,
+    "description": "Second-generation antihistamine for allergic rhinitis and urticaria.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.216Z",
+    "updatedAt": "2026-09-17T17:50:40.890Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0520aeb92f665744fcde",
+    "name": "Ibuprofen 400mg",
+    "genericName": "Ibuprofen",
+    "brandName": "Brufen 400",
+    "strength": "400mg",
+    "dosageForm": "Tablet",
+    "activeIngredients": [
+      "Ibuprofen"
+    ],
+    "aliases": [
+      "Brufen",
+      "Advil",
+      "Motrin"
+    ],
+    "commonMisspellings": [
+      "ibrufen",
+      "ibuprufen",
+      "brufin"
+    ],
+    "searchableNames": [
+      "ibuprofen 400",
+      "brufen"
+    ],
+    "manufacturer": "Sun Pharma",
+    "category": "Tablet",
+    "batchNumber": "B-IBU-03",
+    "expiryDate": "2026-08-15T00:00:00.000Z",
+    "purchasePrice": 3,
+    "sellingPrice": 7,
+    "quantity": 6,
+    "lowStockThreshold": 20,
+    "description": "NSAID medication for inflammation and pain relief.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.216Z",
+    "updatedAt": "2026-09-17T15:20:00.216Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0520aeb92f665744fce0",
+    "name": "Metformin 500mg",
+    "genericName": "Metformin Hydrochloride",
+    "brandName": "Glycomet 500",
+    "strength": "500mg",
+    "dosageForm": "Tablet",
+    "activeIngredients": [
+      "Metformin Hydrochloride"
+    ],
+    "aliases": [
+      "Glycomet",
+      "Glucophage"
+    ],
+    "commonMisspellings": [
+      "metaformin",
+      "metformin",
+      "glycomet"
+    ],
+    "searchableNames": [
+      "metformin 500",
+      "glycomet"
+    ],
+    "manufacturer": "USV",
+    "category": "Tablet",
+    "batchNumber": "B-MET-08",
+    "expiryDate": "2026-10-01T00:00:00.000Z",
+    "purchasePrice": 5,
+    "sellingPrice": 10,
+    "quantity": 250,
+    "lowStockThreshold": 30,
+    "description": "First-line medication for type 2 diabetes management.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.217Z",
+    "updatedAt": "2026-09-17T15:20:00.217Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0520aeb92f665744fcdf",
+    "name": "Pantoprazole 40mg",
+    "genericName": "Pantoprazole Sodium",
+    "brandName": "Pan 40",
+    "strength": "40mg",
+    "dosageForm": "Tablet",
+    "activeIngredients": [
+      "Pantoprazole Sodium"
+    ],
+    "aliases": [
+      "Pan 40",
+      "Pantocid",
+      "Protonix"
+    ],
+    "commonMisspellings": [
+      "pantop",
+      "pantaprazole",
+      "pan-40"
+    ],
+    "searchableNames": [
+      "pantoprazole",
+      "pan 40",
+      "pantocid"
+    ],
+    "manufacturer": "Alkem",
+    "category": "Tablet",
+    "batchNumber": "B-PAN-09",
+    "expiryDate": "2027-02-28T00:00:00.000Z",
+    "purchasePrice": 6,
+    "sellingPrice": 12,
+    "quantity": 210,
+    "lowStockThreshold": 30,
+    "description": "Proton pump inhibitor for acid reflux and GERD.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.216Z",
+    "updatedAt": "2026-09-17T15:20:00.216Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0520aeb92f665744fcdc",
+    "name": "Azithromycin 500mg",
+    "genericName": "Azithromycin",
+    "brandName": "Azithral 500",
+    "strength": "500mg",
+    "dosageForm": "Tablet",
+    "activeIngredients": [
+      "Azithromycin Dihydrate"
+    ],
+    "aliases": [
+      "Azithral",
+      "Azee",
+      "Zithromax",
+      "Azithro"
+    ],
+    "commonMisspellings": [
+      "azithromicin",
+      "azithro 500",
+      "azithromycine"
+    ],
+    "searchableNames": [
+      "azithromycin 500",
+      "azithral",
+      "azee"
+    ],
+    "manufacturer": "Pfizer",
+    "category": "Tablet",
+    "batchNumber": "B-AZI-05",
+    "expiryDate": "2027-03-10T00:00:00.000Z",
+    "purchasePrice": 25,
+    "sellingPrice": 45,
+    "quantity": 84,
+    "lowStockThreshold": 20,
+    "description": "Macrolide antibiotic for respiratory and skin infections.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.216Z",
+    "updatedAt": "2026-09-17T18:02:16.206Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0520aeb92f665744fcdd",
+    "name": "Cough Syrup 100ml",
+    "genericName": "Dextromethorphan + Chlorpheniramine",
+    "brandName": "Koflet-DX",
+    "strength": "100ml",
+    "dosageForm": "Syrup",
+    "activeIngredients": [
+      "Dextromethorphan HBr",
+      "Chlorpheniramine Maleate"
+    ],
+    "aliases": [
+      "Cough Syr",
+      "Koflet",
+      "Benadryl",
+      "Ascoril"
+    ],
+    "commonMisspellings": [
+      "cough sirup",
+      "cough syr",
+      "koflet dx"
+    ],
+    "searchableNames": [
+      "cough syrup",
+      "koflet",
+      "cough syr"
+    ],
+    "manufacturer": "Himalaya",
+    "category": "Syrup",
+    "batchNumber": "B-CSY-06",
+    "expiryDate": "2026-10-30T00:00:00.000Z",
+    "purchasePrice": 35,
+    "sellingPrice": 65,
+    "quantity": 8,
+    "lowStockThreshold": 15,
+    "description": "Antitussive and soothing formulation for dry cough relief.",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.216Z",
+    "updatedAt": "2026-09-17T15:20:00.216Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac2702e59ea1a60f697e48",
+    "name": "Doxycycline 100mg",
+    "genericName": "Doxycycline",
+    "brandName": "Dox-100",
+    "category": "Capsule",
+    "dosageForm": "Capsule",
+    "strength": "100mg",
+    "manufacturer": "Sun Pharma",
+    "batchNumber": "DOX-8821",
+    "expiryDate": "2027-10-30T00:00:00.000Z",
+    "quantity": 140,
+    "costPrice": 4,
+    "sellingPrice": 8,
+    "isActive": true,
+    "aliases": [
+      "Dori 100",
+      "Doxy 100",
+      "Doxil",
+      "Dox"
+    ],
+    "commonMisspellings": [
+      "dori 100",
+      "doxi 100",
+      "s dori 100"
+    ],
+    "updatedAt": "2026-09-17T17:51:26.446Z"
+  },
+  {
+    "_id": "6aac2702e59ea1a60f697e4b",
+    "name": "Griseofulvin 250mg",
+    "genericName": "Griseofulvin",
+    "brandName": "Gris-OD",
+    "category": "Tablet",
+    "dosageForm": "Tablet",
+    "strength": "250mg",
+    "manufacturer": "Cipla Ltd",
+    "batchNumber": "GRS-4019",
+    "expiryDate": "2027-08-15T00:00:00.000Z",
+    "quantity": 70,
+    "costPrice": 8,
+    "sellingPrice": 14,
+    "isActive": true,
+    "aliases": [
+      "Grisov",
+      "Grisovin",
+      "Gris"
+    ],
+    "commonMisspellings": [
+      "grisov",
+      "griseo",
+      "t grisov"
+    ],
+    "updatedAt": "2026-09-17T17:51:26.449Z"
+  },
+  {
+    "_id": "6aac2702e59ea1a60f697e4e",
+    "name": "Dolo 650mg",
+    "genericName": "Paracetamol 650mg",
+    "brandName": "Dolo 650",
+    "category": "Tablet",
+    "dosageForm": "Tablet",
+    "strength": "650mg",
+    "manufacturer": "Micro Labs",
+    "batchNumber": "DL-9012",
+    "expiryDate": "2028-01-20T00:00:00.000Z",
+    "quantity": 490,
+    "costPrice": 2,
+    "sellingPrice": 3.5,
+    "isActive": true,
+    "aliases": [
+      "Paracetamol 650",
+      "PCM 650",
+      "Calpol 650"
+    ],
+    "commonMisspellings": [
+      "dolo",
+      "t dolo",
+      "dolo650"
+    ],
+    "updatedAt": "2026-09-17T17:51:26.452Z"
+  },
+  {
+    "_id": "6aac2702e59ea1a60f697e51",
+    "name": "Amorolfine Cream 0.25%",
+    "genericName": "Amorolfine",
+    "brandName": "Amorfine",
+    "category": "Ointment",
+    "dosageForm": "Cream",
+    "strength": "0.25%",
+    "manufacturer": "Glenmark",
+    "batchNumber": "AMR-1120",
+    "expiryDate": "2027-05-10T00:00:00.000Z",
+    "quantity": 44,
+    "costPrice": 110,
+    "sellingPrice": 165,
+    "isActive": true,
+    "aliases": [
+      "Amorolfine",
+      "Amorolfine 0.25%"
+    ],
+    "commonMisspellings": [
+      "amorofine",
+      "amorolfin",
+      "amorfine"
+    ],
+    "updatedAt": "2026-09-17T17:51:26.455Z"
+  },
+  {
+    "_id": "6aac2702e59ea1a60f697e54",
+    "name": "Ketoconazole Soap 2%",
+    "genericName": "Ketoconazole",
+    "brandName": "Keto-Clean",
+    "category": "Other",
+    "dosageForm": "Soap",
+    "strength": "2%",
+    "manufacturer": "Kopran Ltd",
+    "batchNumber": "KTO-773",
+    "expiryDate": "2027-12-01T00:00:00.000Z",
+    "quantity": 59,
+    "costPrice": 55,
+    "sellingPrice": 85,
+    "isActive": true,
+    "aliases": [
+      "Keto Soap",
+      "Ketoconazole"
+    ],
+    "commonMisspellings": [
+      "keto soap",
+      "ketoc"
+    ],
+    "updatedAt": "2026-09-17T17:51:26.458Z"
+  }
+]

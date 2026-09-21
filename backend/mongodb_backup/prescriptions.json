@@ -1,0 +1,139 @@
+[
+  {
+    "_id": "6aac0522aeb92f665744fcff",
+    "customer": "6aac0521aeb92f665744fcec",
+    "doctorName": "Dr. Arun Kumar, M.D.",
+    "prescriptionImage": "uploads/prescriptions/sample-rx-1024.png",
+    "originalFileName": "priya-prescription.png",
+    "fileType": "image/png",
+    "fileSize": 320000,
+    "uploadedBy": "6aac0521aeb92f665744fcec",
+    "uploadedByModel": "Customer",
+    "prescribedMedicines": [
+      {
+        "medicine": "6aac0520aeb92f665744fcd8",
+        "medicineName": "Paracetamol 500mg",
+        "dosage": "1 tablet",
+        "frequency": "Twice daily after food",
+        "duration": "5 days",
+        "quantity": 10,
+        "confidence": 0.74,
+        "matchStatus": "MEDIUM_CONFIDENCE",
+        "isVerified": false,
+        "_id": "6aac1e9f5aaf9c63a02200da"
+      },
+      {
+        "medicine": "6aac0520aeb92f665744fcda",
+        "medicineName": "Amoxicillin 500mg",
+        "dosage": "1 capsule",
+        "frequency": "Every 8 hours",
+        "duration": "5 days",
+        "quantity": 15,
+        "confidence": 0.95,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isVerified": false,
+        "_id": "6aac1e9f5aaf9c63a02200db"
+      },
+      {
+        "medicine": "6aac0520aeb92f665744fcdb",
+        "medicineName": "Cetirizine 10mg",
+        "dosage": "1 tablet",
+        "frequency": "Once daily at bedtime",
+        "duration": "3 days",
+        "quantity": 3,
+        "confidence": 0.98,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isVerified": false,
+        "_id": "6aac1e9f5aaf9c63a02200dc"
+      }
+    ],
+    "date": "2026-09-16T15:20:02.117Z",
+    "notes": "Verified regular asthma and allergy prescription",
+    "status": "UNDER_PHARMACIST_REVIEW",
+    "verifiedBy": "6aac051eaeb92f665744fcd4",
+    "verifiedAt": "2026-09-17T16:39:01.870Z",
+    "createdAt": "2026-09-17T15:20:02.122Z",
+    "updatedAt": "2026-09-17T17:08:47.056Z",
+    "__v": 5,
+    "aiAnalysis": "6aac08d197e290bc60ac3bcc",
+    "processedImage": "uploads/prescriptions/processed-sample-rx-1024.png",
+    "pharmacistNotes": "Verified patient dosage and confirmed formulation."
+  },
+  {
+    "_id": "6aac1fac5aaf9c63a022011f",
+    "customer": "6aac0521aeb92f665744fcec",
+    "doctorName": "Dr. P. Ponnusamy / Dr. P. Brindha",
+    "prescriptionImage": "C:/Users/HP/Downloads/pharmacy-management-system/pharmacy-management/backend/uploads/prescriptions/staff-rx-1789665196047-439509754.jpg",
+    "originalFileName": "1000095194.jpg",
+    "fileType": "image/jpeg",
+    "fileSize": 3653635,
+    "uploadedBy": "6aac051eaeb92f665744fcd4",
+    "uploadedByModel": "User",
+    "prescribedMedicines": [
+      {
+        "medicine": "6aac2702e59ea1a60f697e48",
+        "medicineName": "Doxycycline 100mg",
+        "dosage": "1 capsule",
+        "frequency": "1-0-1 (Twice daily)",
+        "duration": "5 days",
+        "quantity": 10,
+        "confidence": 0.92,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isVerified": false
+      },
+      {
+        "medicine": "6aac2702e59ea1a60f697e4b",
+        "medicineName": "Griseofulvin 250mg",
+        "dosage": "1 tablet",
+        "frequency": "Once daily after food",
+        "duration": "20 days",
+        "quantity": 20,
+        "confidence": 0.88,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isVerified": false
+      },
+      {
+        "medicine": "6aac2702e59ea1a60f697e4e",
+        "medicineName": "Dolo 650mg",
+        "dosage": "1 tablet",
+        "frequency": "When needed (SOS)",
+        "duration": "5 days",
+        "quantity": 10,
+        "confidence": 0.95,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isVerified": false
+      },
+      {
+        "medicine": "6aac2702e59ea1a60f697e51",
+        "medicineName": "Amorolfine Cream 0.25%",
+        "dosage": "External application",
+        "frequency": "Apply once daily at night",
+        "duration": "14 days",
+        "quantity": 1,
+        "confidence": 0.9,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isVerified": false
+      },
+      {
+        "medicine": "6aac2702e59ea1a60f697e54",
+        "medicineName": "Ketoconazole Soap 2%",
+        "dosage": "External bath use",
+        "frequency": "Daily during bath",
+        "duration": "30 days",
+        "quantity": 1,
+        "confidence": 0.86,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isVerified": false
+      }
+    ],
+    "date": "2026-09-17T00:00:00.000Z",
+    "notes": "Patient: Dilipan (20/M) - Prescribed for dermatological consultation",
+    "status": "UNDER_PHARMACIST_REVIEW",
+    "createdAt": "2026-09-17T17:13:16.092Z",
+    "updatedAt": "2026-09-17T17:20:14.361Z",
+    "__v": 1,
+    "aiAnalysis": "6aac214e5aaf9c63a022055a",
+    "processedImage": "C:/Users/HP/Downloads/pharmacy-management-system/pharmacy-management/backend/uploads/prescriptions/processed-staff-rx-1789665196047-439509754.jpg",
+    "rejectionReason": ""
+  }
+]

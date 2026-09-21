@@ -1,0 +1,287 @@
+[
+  {
+    "_id": "6aac08d197e290bc60ac3bcc",
+    "prescription": "6aac0522aeb92f665744fcff",
+    "aiProvider": "local-vision-simulator",
+    "aiModel": "vision-heuristic-v1",
+    "extractedDoctorName": "Dr. Arun Kumar, M.D.",
+    "extractedDate": "2026-09-17",
+    "rawAiOutput": {
+      "note": "AI_API_KEY unconfigured. Generated vision-assisted draft. Pharmacist confirmation required.",
+      "draft": {
+        "doctorName": "Dr. Arun Kumar, M.D.",
+        "prescriptionDate": "2026-09-17",
+        "medicines": [
+          {
+            "recognizedText": "Paracetmol 500",
+            "strength": "500mg",
+            "dosage": "1 tablet",
+            "frequency": "Twice daily after food",
+            "duration": "5 days",
+            "quantity": 10,
+            "confidence": 0.94,
+            "isHandwritten": true,
+            "uncertaintyReason": null,
+            "possibleInterpretations": [
+              "Paracetamol 500mg"
+            ]
+          },
+          {
+            "recognizedText": "Amox... 500",
+            "strength": "500mg",
+            "dosage": "1 capsule",
+            "frequency": "Every 8 hours",
+            "duration": "5 days",
+            "quantity": 15,
+            "confidence": 0.74,
+            "isHandwritten": true,
+            "uncertaintyReason": "Handwriting is partially unclear; pharmacist review required.",
+            "possibleInterpretations": [
+              "Amoxicillin 250mg",
+              "Amoxicillin 500mg"
+            ]
+          },
+          {
+            "recognizedText": "Cetirizine 10mg",
+            "strength": "10mg",
+            "dosage": "1 tablet",
+            "frequency": "Once daily at bedtime",
+            "duration": "3 days",
+            "quantity": 3,
+            "confidence": 0.96,
+            "isHandwritten": true,
+            "uncertaintyReason": null,
+            "possibleInterpretations": [
+              "Cetirizine 10mg"
+            ]
+          }
+        ],
+        "overallConfidence": 0.88,
+        "uncertainFields": [
+          "Amox... 500 dosage/strength"
+        ]
+      }
+    },
+    "extractedMedicines": [
+      {
+        "recognizedText": "Paracetmol 500",
+        "matchedMedicine": "6aac0520aeb92f665744fcd8",
+        "matchedMedicineName": "Paracetamol 500mg",
+        "strength": "500mg",
+        "dosage": "1 tablet",
+        "frequency": "Twice daily after food",
+        "duration": "5 days",
+        "quantity": 10,
+        "confidence": 0.74,
+        "matchStatus": "MEDIUM_CONFIDENCE",
+        "alternativeCandidates": [],
+        "uncertainReason": "Fuzzy phonetic/string similarity (74%)",
+        "isHandwritten": true,
+        "_id": "6aac1e9f5aaf9c63a02200d1"
+      },
+      {
+        "recognizedText": "Amox... 500",
+        "matchedMedicine": "6aac0520aeb92f665744fcda",
+        "matchedMedicineName": "Amoxicillin 500mg",
+        "strength": "500mg",
+        "dosage": "1 capsule",
+        "frequency": "Every 8 hours",
+        "duration": "5 days",
+        "quantity": 15,
+        "confidence": 0.95,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "alternativeCandidates": [
+          {
+            "medicine": "6aac0520aeb92f665744fcd9",
+            "name": "Amoxicillin 250mg",
+            "sellingPrice": 15,
+            "quantity": 180,
+            "score": 0.94,
+            "_id": "6aac1e9f5aaf9c63a02200d3"
+          }
+        ],
+        "uncertainReason": null,
+        "isHandwritten": true,
+        "_id": "6aac1e9f5aaf9c63a02200d2"
+      },
+      {
+        "recognizedText": "Cetirizine 10mg",
+        "matchedMedicine": "6aac0520aeb92f665744fcdb",
+        "matchedMedicineName": "Cetirizine 10mg",
+        "strength": "10mg",
+        "dosage": "1 tablet",
+        "frequency": "Once daily at bedtime",
+        "duration": "3 days",
+        "quantity": 3,
+        "confidence": 0.98,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "alternativeCandidates": [],
+        "uncertainReason": null,
+        "isHandwritten": true,
+        "_id": "6aac1e9f5aaf9c63a02200d4"
+      }
+    ],
+    "overallConfidence": 0.88,
+    "uncertainFields": [
+      "Amox... 500 dosage/strength"
+    ],
+    "requiresPharmacistReview": true,
+    "fairnessAudit": {
+      "protectedAttributesUsed": false,
+      "decisionBasedOnPrescriptionEvidence": true,
+      "humanReviewRequired": true,
+      "aiConfidence": 0.88,
+      "auditTimestamp": "2026-09-17T17:08:47.018Z",
+      "auditNotes": [
+        "Verification grounded solely on prescription visual evidence and pharmacy inventory",
+        "No protected personal characteristics (gender, religion, ethnicity, caste, income, address, phone) utilized in recognition or verification logic",
+        "Human-in-the-loop: Pharmacist holds sole authorization to confirm, modify, or reject dispensing",
+        "Amox... 500 dosage/strength"
+      ]
+    },
+    "pharmacistCorrections": [],
+    "createdAt": "2026-09-17T15:35:45.611Z",
+    "updatedAt": "2026-09-17T17:08:47.020Z",
+    "__v": 0,
+    "verifiedAt": "2026-09-17T16:39:01.877Z",
+    "verifiedBy": "6aac051eaeb92f665744fcd4"
+  },
+  {
+    "_id": "6aac214e5aaf9c63a022055a",
+    "prescription": "6aac1fac5aaf9c63a022011f",
+    "aiProvider": "local-vision-simulator",
+    "aiModel": "vision-heuristic-v1",
+    "extractedDoctorName": "Dr. P. Ponnusamy / Dr. P. Brindha",
+    "extractedDate": "2026-06-05",
+    "rawAiOutput": {
+      "note": "AI_API_KEY unconfigured. Generated vision-assisted draft. Pharmacist confirmation required.",
+      "draft": {
+        "doctorName": "Dr. Priya Sundaram, MBBS",
+        "prescriptionDate": "2026-09-17",
+        "medicines": [
+          {
+            "recognizedText": "Azithromicin 500",
+            "strength": "500mg",
+            "dosage": "1 tablet",
+            "frequency": "Once daily",
+            "duration": "3 days",
+            "quantity": 3,
+            "confidence": 0.92,
+            "isHandwritten": true,
+            "uncertaintyReason": null,
+            "possibleInterpretations": [
+              "Azithromycin 500mg"
+            ]
+          },
+          {
+            "recognizedText": "Cough Syr 100ml",
+            "strength": "100ml",
+            "dosage": "10ml",
+            "frequency": "Thrice daily",
+            "duration": "5 days",
+            "quantity": 1,
+            "confidence": 0.78,
+            "isHandwritten": true,
+            "uncertaintyReason": "Abbreviated handwriting for formulation; verify syrup name.",
+            "possibleInterpretations": [
+              "Cough Syrup 100ml"
+            ]
+          }
+        ],
+        "overallConfidence": 0.85,
+        "uncertainFields": [
+          "Cough Syr exact formulation"
+        ]
+      }
+    },
+    "extractedMedicines": [
+      {
+        "recognizedText": "S. Doxy 100",
+        "matchedMedicine": "6aac2702e59ea1a60f697e48",
+        "matchedMedicineName": "Doxycycline 100mg",
+        "dosage": "1 capsule",
+        "frequency": "1-0-1",
+        "duration": "5 days",
+        "quantity": 10,
+        "confidence": 0.92,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isHandwritten": true,
+        "uncertainReason": null
+      },
+      {
+        "recognizedText": "T. Griseofulvin 250",
+        "matchedMedicine": "6aac2702e59ea1a60f697e4b",
+        "matchedMedicineName": "Griseofulvin 250mg",
+        "dosage": "1 tablet",
+        "frequency": "1-0-0",
+        "duration": "20 days",
+        "quantity": 20,
+        "confidence": 0.88,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isHandwritten": true,
+        "uncertainReason": null
+      },
+      {
+        "recognizedText": "T. Dolo 650",
+        "matchedMedicine": "6aac2702e59ea1a60f697e4e",
+        "matchedMedicineName": "Dolo 650mg",
+        "dosage": "1 tablet",
+        "frequency": "SOS",
+        "duration": "5 days",
+        "quantity": 10,
+        "confidence": 0.95,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isHandwritten": true,
+        "uncertainReason": null
+      },
+      {
+        "recognizedText": "Amorolfine cream",
+        "matchedMedicine": "6aac2702e59ea1a60f697e51",
+        "matchedMedicineName": "Amorolfine Cream 0.25%",
+        "dosage": "Apply topically",
+        "frequency": "Once daily",
+        "duration": "14 days",
+        "quantity": 1,
+        "confidence": 0.9,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isHandwritten": true,
+        "uncertainReason": null
+      },
+      {
+        "recognizedText": "Keto Soap",
+        "matchedMedicine": "6aac2702e59ea1a60f697e54",
+        "matchedMedicineName": "Ketoconazole Soap 2%",
+        "dosage": "Apply during bath",
+        "frequency": "Once daily",
+        "duration": "30 days",
+        "quantity": 1,
+        "confidence": 0.86,
+        "matchStatus": "HIGH_CONFIDENCE",
+        "isHandwritten": true,
+        "uncertainReason": null
+      }
+    ],
+    "overallConfidence": 0.9,
+    "uncertainFields": [
+      "Cough Syr exact formulation"
+    ],
+    "requiresPharmacistReview": true,
+    "fairnessAudit": {
+      "protectedAttributesUsed": false,
+      "decisionBasedOnPrescriptionEvidence": true,
+      "humanReviewRequired": true,
+      "aiConfidence": 0.85,
+      "auditTimestamp": "2026-09-17T17:20:14.344Z",
+      "auditNotes": [
+        "Verification grounded solely on prescription visual evidence and pharmacy inventory",
+        "No protected personal characteristics (gender, religion, ethnicity, caste, income, address, phone) utilized in recognition or verification logic",
+        "Human-in-the-loop: Pharmacist holds sole authorization to confirm, modify, or reject dispensing",
+        "Cough Syr exact formulation"
+      ]
+    },
+    "pharmacistCorrections": [],
+    "createdAt": "2026-09-17T17:20:14.351Z",
+    "updatedAt": "2026-09-17T17:20:14.351Z",
+    "__v": 0
+  }
+]

@@ -1,0 +1,55 @@
+[
+  {
+    "_id": "6aac0520aeb92f665744fcea",
+    "name": "Ramesh Kumar",
+    "phone": "9876543001",
+    "email": "ramesh@gmail.com",
+    "password": "$2a$12$KuEuOfdDjME.G7.M2FAzLOStvlZ1j68CeOeF7U3GVO9jQPCdyj4A6",
+    "hasAccount": true,
+    "address": "12 MG Road, Chennai, Tamil Nadu",
+    "dateOfBirth": "1988-04-12T00:00:00.000Z",
+    "gender": "Male",
+    "prescriptions": [],
+    "totalPurchases": 1323.6599999999999,
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:00.259Z",
+    "updatedAt": "2026-09-18T14:10:25.127Z",
+    "__v": 0,
+    "lastLoginAt": "2026-09-18T14:10:08.028Z"
+  },
+  {
+    "_id": "6aac0521aeb92f665744fcec",
+    "name": "Priya Sharma",
+    "phone": "9876543002",
+    "email": "priya@gmail.com",
+    "password": "$2a$12$lEh205s3oDVpRBcPaLKRP.2.kGPJhRPtYCqdPff7q2Z.Od.nEvK/G",
+    "hasAccount": true,
+    "address": "45 Anna Nagar, Madurai, Tamil Nadu",
+    "dateOfBirth": "1994-09-25T00:00:00.000Z",
+    "gender": "Female",
+    "prescriptions": [
+      "6aac0522aeb92f665744fcff",
+      "6aac1fac5aaf9c63a022011f"
+    ],
+    "totalPurchases": 360,
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:01.051Z",
+    "updatedAt": "2026-09-17T17:13:16.095Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac0521aeb92f665744fcee",
+    "name": "Suresh Babu (Walk-in)",
+    "phone": "9876543003",
+    "email": "suresh@gmail.com",
+    "hasAccount": false,
+    "address": "7 Gandhi Street, Coimbatore, Tamil Nadu",
+    "gender": "Male",
+    "prescriptions": [],
+    "totalPurchases": 45,
+    "isActive": true,
+    "createdAt": "2026-09-17T15:20:01.804Z",
+    "updatedAt": "2026-09-17T15:20:01.804Z",
+    "__v": 0
+  }
+]

@@ -1,0 +1,226 @@
+[
+  {
+    "_id": "6aac0522aeb92f665744fd04",
+    "invoiceId": "INV-2026-0001",
+    "customer": "6aac0520aeb92f665744fcea",
+    "customerName": "Ramesh Kumar",
+    "items": [
+      {
+        "medicine": "6aac0520aeb92f665744fcd8",
+        "medicineName": "Paracetamol 500mg",
+        "quantity": 20,
+        "unitPrice": 5,
+        "totalPrice": 100,
+        "_id": "6aac0522aeb92f665744fd05"
+      },
+      {
+        "medicine": "6aac0520aeb92f665744fcdf",
+        "medicineName": "Pantoprazole 40mg",
+        "quantity": 10,
+        "unitPrice": 12,
+        "totalPrice": 120,
+        "_id": "6aac0522aeb92f665744fd06"
+      }
+    ],
+    "subtotal": 220,
+    "discount": 5,
+    "tax": 5,
+    "totalAmount": 219.45,
+    "paymentMethod": "UPI",
+    "paymentStatus": "paid",
+    "soldBy": "6aac051eaeb92f665744fcd4",
+    "notes": "Regular purchase",
+    "date": "2026-09-15T15:20:02.130Z",
+    "createdAt": "2026-09-17T15:20:02.133Z",
+    "updatedAt": "2026-09-17T15:20:02.133Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac08d197e290bc60ac3bfe",
+    "customer": "6aac0521aeb92f665744fcec",
+    "customerName": "Ramesh Kumar",
+    "items": [
+      {
+        "medicine": "6aac0520aeb92f665744fcdc",
+        "medicineName": "Azithromycin 500mg",
+        "quantity": 2,
+        "unitPrice": 45,
+        "totalPrice": 90,
+        "_id": "6aac08d197e290bc60ac3bff"
+      }
+    ],
+    "subtotal": 90,
+    "discount": 0,
+    "tax": 0,
+    "totalAmount": 90,
+    "paymentMethod": "Cash",
+    "paymentStatus": "paid",
+    "prescription": "6aac0522aeb92f665744fcff",
+    "soldBy": "6aac051eaeb92f665744fcd4",
+    "date": "2026-09-17T15:35:45.687Z",
+    "createdAt": "2026-09-17T15:35:45.689Z",
+    "updatedAt": "2026-09-17T15:35:45.689Z",
+    "invoiceId": "INV-1789659345693-0002",
+    "__v": 0
+  },
+  {
+    "_id": "6aac17a5447e6e166a2e900c",
+    "customer": "6aac0521aeb92f665744fcec",
+    "customerName": "Ramesh Kumar",
+    "items": [
+      {
+        "medicine": "6aac0520aeb92f665744fcdc",
+        "medicineName": "Azithromycin 500mg",
+        "quantity": 2,
+        "unitPrice": 45,
+        "totalPrice": 90,
+        "_id": "6aac17a5447e6e166a2e900d"
+      }
+    ],
+    "subtotal": 90,
+    "discount": 0,
+    "tax": 0,
+    "totalAmount": 90,
+    "paymentMethod": "Cash",
+    "paymentStatus": "paid",
+    "prescription": "6aac0522aeb92f665744fcff",
+    "soldBy": "6aac051eaeb92f665744fcd4",
+    "date": "2026-09-17T16:39:01.910Z",
+    "createdAt": "2026-09-17T16:39:01.911Z",
+    "updatedAt": "2026-09-17T16:39:01.911Z",
+    "invoiceId": "INV-1789663141916-0003",
+    "__v": 0
+  },
+  {
+    "_id": "6aac28705aaf9c63a02207e4",
+    "customer": "6aac0520aeb92f665744fcea",
+    "customerName": "Ramesh Kumar",
+    "items": [
+      {
+        "medicine": "6aac0520aeb92f665744fcd8",
+        "medicineName": "Paracetamol 500mg",
+        "quantity": 10,
+        "unitPrice": 5,
+        "totalPrice": 50,
+        "_id": "6aac28705aaf9c63a02207e5"
+      },
+      {
+        "medicine": "6aac0520aeb92f665744fcd9",
+        "medicineName": "Amoxicillin 250mg",
+        "quantity": 15,
+        "unitPrice": 15,
+        "totalPrice": 225,
+        "_id": "6aac28705aaf9c63a02207e6"
+      },
+      {
+        "medicine": "6aac0520aeb92f665744fcdb",
+        "medicineName": "Cetirizine 10mg",
+        "quantity": 3,
+        "unitPrice": 4,
+        "totalPrice": 12,
+        "_id": "6aac28705aaf9c63a02207e7"
+      }
+    ],
+    "subtotal": 287,
+    "discount": 0,
+    "tax": 18,
+    "totalAmount": 338.65999999999997,
+    "paymentMethod": "Cash",
+    "paymentStatus": "paid",
+    "prescription": "6aac0522aeb92f665744fcf0",
+    "soldBy": "6aac051eaeb92f665744fcd4",
+    "date": "2026-09-17T17:50:40.873Z",
+    "createdAt": "2026-09-17T17:50:40.875Z",
+    "updatedAt": "2026-09-17T17:50:40.875Z",
+    "invoiceId": "INV-1789667440879-0004",
+    "__v": 0
+  },
+  {
+    "_id": "6aac289e5aaf9c63a022093d",
+    "customer": "6aac0520aeb92f665744fcea",
+    "customerName": "Ramesh Kumar",
+    "items": [
+      {
+        "medicine": "6aac2702e59ea1a60f697e48",
+        "medicineName": "Doxycycline 100mg",
+        "quantity": 10,
+        "unitPrice": 8,
+        "totalPrice": 80,
+        "_id": "6aac289e5aaf9c63a022093e"
+      },
+      {
+        "medicine": "6aac2702e59ea1a60f697e4b",
+        "medicineName": "Griseofulvin 250mg",
+        "quantity": 20,
+        "unitPrice": 14,
+        "totalPrice": 280,
+        "_id": "6aac289e5aaf9c63a022093f"
+      },
+      {
+        "medicine": "6aac2702e59ea1a60f697e4e",
+        "medicineName": "Dolo 650mg",
+        "quantity": 10,
+        "unitPrice": 3.5,
+        "totalPrice": 35,
+        "_id": "6aac289e5aaf9c63a0220940"
+      },
+      {
+        "medicine": "6aac2702e59ea1a60f697e51",
+        "medicineName": "Amorolfine Cream 0.25%",
+        "quantity": 1,
+        "unitPrice": 165,
+        "totalPrice": 165,
+        "_id": "6aac289e5aaf9c63a0220941"
+      },
+      {
+        "medicine": "6aac2702e59ea1a60f697e54",
+        "medicineName": "Ketoconazole Soap 2%",
+        "quantity": 1,
+        "unitPrice": 85,
+        "totalPrice": 85,
+        "_id": "6aac289e5aaf9c63a0220942"
+      }
+    ],
+    "subtotal": 645,
+    "discount": 0,
+    "tax": 0,
+    "totalAmount": 645,
+    "paymentMethod": "Cash",
+    "paymentStatus": "paid",
+    "prescription": "6aac200c5aaf9c63a0220161",
+    "soldBy": "6aac051eaeb92f665744fcd4",
+    "date": "2026-09-17T17:51:26.438Z",
+    "createdAt": "2026-09-17T17:51:26.440Z",
+    "updatedAt": "2026-09-17T17:51:26.440Z",
+    "invoiceId": "INV-1789667486443-0005",
+    "__v": 0
+  },
+  {
+    "_id": "6aac2b289d08f7c39a274acc",
+    "customer": "6aac0520aeb92f665744fcea",
+    "customerName": "Ramesh Kumar",
+    "items": [
+      {
+        "medicine": "6aac0520aeb92f665744fcdc",
+        "medicineName": "Azithromycin 500mg",
+        "quantity": 2,
+        "unitPrice": 45,
+        "totalPrice": 90,
+        "_id": "6aac2b289d08f7c39a274acd"
+      }
+    ],
+    "subtotal": 90,
+    "discount": 0,
+    "tax": 0,
+    "totalAmount": 90,
+    "paymentMethod": "Cash",
+    "paymentStatus": "paid",
+    "prescription": "6aac27fe5aaf9c63a022067d",
+    "soldBy": "6aac051eaeb92f665744fcd4",
+    "date": "2026-09-17T18:02:16.200Z",
+    "createdAt": "2026-09-17T18:02:16.201Z",
+    "updatedAt": "2026-09-17T18:02:16.201Z",
+    "invoiceId": "INV-1789668136204-0006",
+    "__v": 0
+  }
+]

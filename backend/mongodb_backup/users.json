@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "6aac051eaeb92f665744fcd2",
+    "name": "Dr. Elizabeth Warren (Admin)",
+    "email": "admin@pharmacy.com",
+    "password": "$2a$12$YoiEcifkbczSveDNbr7RdOPbIOSw4e6uJM49eCJk9v34CbtkshDEu",
+    "role": "admin",
+    "phone": "9876543210",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:19:58.239Z",
+    "updatedAt": "2026-09-17T15:19:58.239Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac051eaeb92f665744fcd4",
+    "name": "John Pharmacist",
+    "email": "john@pharmacy.com",
+    "password": "$2a$12$tv05ywfLCwHRMq0a0FSMTeed1SpGMNQ9MlsKIvWabDBXso9Jx7VFu",
+    "role": "pharmacist",
+    "phone": "9876543211",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:19:58.845Z",
+    "updatedAt": "2026-09-17T15:19:58.845Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aac051faeb92f665744fcd6",
+    "name": "Sarah Connor (R.Ph)",
+    "email": "sarah@pharmacy.com",
+    "password": "$2a$12$0SN4ssh3r/yo8/y9OwMVkeUKtkFtiLAL.TVi7zeE/wj9LoFEVh7g.",
+    "role": "pharmacist",
+    "phone": "9876543212",
+    "isActive": true,
+    "createdAt": "2026-09-17T15:19:59.426Z",
+    "updatedAt": "2026-09-17T15:19:59.426Z",
+    "__v": 0
+  }
+]

@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment Variables & Secrets (CRITICAL for security)
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+backend/.env
+frontend/.env
+
+# Production Builds
+frontend/build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Processed Temporary Images
+backend/uploads/prescriptions/processed-*
