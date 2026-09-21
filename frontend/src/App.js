@@ -32,6 +32,7 @@ import CustomerUploadPrescription from './pages/customer/CustomerUploadPrescript
 import CustomerPurchases from './pages/customer/CustomerPurchases';
 import CustomerProfile from './pages/customer/CustomerProfile';
 import CustomerStore from './pages/customer/CustomerStore';
+import LandingPage from './pages/LandingPage';
 
 const StaffRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -102,7 +103,7 @@ function RootRedirect() {
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<RootRedirect />} />
+      <Route path="/" element={<LandingPage />} />
 
       {/* Public Auth Routes */}
       <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />

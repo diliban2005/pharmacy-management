@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { LogOut } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../services/api';
 
 export default function CustomerProfile() {
-  const { user, updateCustomerUser } = useAuth();
+  const { user, updateCustomerUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -81,11 +89,20 @@ export default function CustomerProfile() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 animate-fade-in">
-      <div>
-        <h1 className="text-2xl font-black text-slate-900">My Profile</h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Keep your contact information and medical delivery address up to date.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div>
+          <h1 className="text-2xl font-black text-slate-900">My Profile</h1>
+          <p className="text-sm text-slate-500 mt-1">
+            Keep your contact information and medical delivery address up to date.
+          </p>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="btn-danger-outline text-xs px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-2xs font-bold self-start sm:self-auto"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Log Out of Portal</span>
+        </button>
       </div>
 
       <div className="card p-6 sm:p-8 space-y-6">

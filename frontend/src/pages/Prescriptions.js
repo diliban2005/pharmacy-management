@@ -1,124 +1,179 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  FileText,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  PlusCircle,
+  Search,
+  ExternalLink,
+  Trash2,
+  Sparkles,
+  User,
+  ShieldCheck,
+  ShoppingCart,
+  Eye,
+} from 'lucide-react';
 import api from '../services/api';
 
 const STATUS_CONFIG = {
-  UPLOADED: { label: 'Uploaded', color: 'bg-blue-100 text-blue-800', icon: '📤' },
-  AI_ANALYZING: { label: 'AI Reading', color: 'bg-purple-100 text-purple-800', icon: '⚡' },
-  UNDER_PHARMACIST_REVIEW: { label: 'Under Review', color: 'bg-amber-100 text-amber-800', icon: '⏳' },
-  NEEDS_CLARIFICATION: { label: 'Clarification', color: 'bg-orange-100 text-orange-800', icon: '💬' },
-  VERIFIED: { label: 'Verified', color: 'bg-emerald-100 text-emerald-800', icon: '✓' },
-  REJECTED: { label: 'Rejected', color: 'bg-rose-100 text-rose-800', icon: '✕' },
-  DISPENSED: { label: 'Dispensed', color: 'bg-teal-100 text-teal-800', icon: '💊' },
+  UPLOADED: { label: 'Uploaded', color: 'badge-info', icon: '📤' },
+  AI_ANALYZING: { label: 'AI Reading', color: 'badge-purple', icon: '⚡' },
+  UNDER_PHARMACIST_REVIEW: { label: 'Review Queue', color: 'badge-warning', icon: '⏳' },
+  NEEDS_CLARIFICATION: { label: 'Clarification', color: 'badge-warning', icon: '💬' },
+  VERIFIED: { label: 'Verified', color: 'badge-success', icon: '✓' },
+  REJECTED: { label: 'Rejected', color: 'badge-danger', icon: '✕' },
+  DISPENSED: { label: 'Dispensed', color: 'badge-success', icon: '💊' },
   // Backward compatibility
-  pending: { label: 'Pending', color: 'bg-amber-100 text-amber-800', icon: '⏳' },
-  verified: { label: 'Verified', color: 'bg-emerald-100 text-emerald-800', icon: '✓' },
-  dispensed: { label: 'Dispensed', color: 'bg-teal-100 text-teal-800', icon: '💊' },
+  pending: { label: 'Pending', color: 'badge-warning', icon: '⏳' },
+  verified: { label: 'Verified', color: 'badge-success', icon: '✓' },
+  dispensed: { label: 'Dispensed', color: 'badge-success', icon: '💊' },
 };
 
 export default function Prescriptions() {
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [statusFilter, setStatusFilter] = useState('');
+  const [activeTab, setActiveTab] = useState('all'); // 'all', 'review', 'verified', 'dispensed'
   const [searchTerm, setSearchTerm] = useState('');
 
   const fetchPrescriptions = useCallback(async () => {
     setLoading(true);
     try {
-      const params = {};
-      if (statusFilter) params.status = statusFilter;
-      if (searchTerm) params.search = searchTerm;
-      const { data } = await api.get('/prescriptions', { params });
-      setPrescriptions(data.data || []);
+      const res = await api.get('/prescriptions');
+      setPrescriptions(res.data.data || []);
     } catch (err) {
-      console.error(err);
+      console.error('Error fetching prescriptions:', err);
     } finally {
       setLoading(false);
     }
-  }, [statusFilter, searchTerm]);
+  }, []);
 
   useEffect(() => {
-    const t = setTimeout(fetchPrescriptions, 250);
-    return () => clearTimeout(t);
+    fetchPrescriptions();
   }, [fetchPrescriptions]);
 
   const handleDeletePrescription = async (id, title) => {
-    if (!window.confirm(`Are you sure you want to permanently delete this prescription record (${title || '#' + id.slice(-6)})? This will remove all verification records.`)) {
-      return;
-    }
+    if (!window.confirm(`Permanently remove prescription record #${id.slice(-6).toUpperCase()}?`)) return;
     try {
       await api.delete(`/prescriptions/${id}`);
-      fetchPrescriptions();
+      setPrescriptions(prev => prev.filter(p => p._id !== id));
     } catch (err) {
       alert(err.response?.data?.message || 'Failed to delete prescription');
     }
   };
 
+  const filteredPrescriptions = useMemo(() => {
+    return prescriptions.filter(p => {
+      // Sub-tab filter
+      if (activeTab === 'review') {
+        if (!['UNDER_PHARMACIST_REVIEW', 'UPLOADED', 'AI_ANALYZING', 'pending'].includes(p.status)) return false;
+      } else if (activeTab === 'verified') {
+        if (!['VERIFIED', 'verified'].includes(p.status)) return false;
+      } else if (activeTab === 'dispensed') {
+        if (!['DISPENSED', 'dispensed'].includes(p.status)) return false;
+      }
+
+      // Search term
+      if (searchTerm.trim()) {
+        const q = searchTerm.toLowerCase().trim();
+        const matchDoctor = p.doctorName?.toLowerCase().includes(q);
+        const matchPatient = p.customer?.name?.toLowerCase().includes(q);
+        const matchNotes = p.notes?.toLowerCase().includes(q);
+        const matchId = p._id.toLowerCase().includes(q);
+        if (!matchDoctor && !matchPatient && !matchNotes && !matchId) return false;
+      }
+
+      return true;
+    });
+  }, [prescriptions, activeTab, searchTerm]);
+
   return (
-    <div className="space-y-6 animate-fade-in max-w-7xl mx-auto">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
+    <div className="space-y-6 animate-fade-in max-w-7xl mx-auto pb-12">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80 pb-6">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Prescription Verification Queue</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Prescription Queue & Clinical Verification
+            </h1>
+            <span className="badge badge-success text-[10px] font-black">
+              AI OCR Active
+            </span>
+          </div>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Inspect AI-extracted doctor handwriting, match medicines against inventory stock, verify safety, or delete unwanted records.
+            Multimodal doctor handwriting transcription, inventory matching, and pharmacist dispensing safety.
           </p>
         </div>
 
-        <Link
-          to="/prescriptions/new"
-          className="btn-primary shadow-sm"
-        >
-          <span>➕</span>
-          <span>Add Prescription</span>
+        <Link to="/prescriptions/new" className="btn-primary text-xs shadow-xs">
+          <PlusCircle className="w-4 h-4" />
+          <span>Upload New Prescription</span>
         </Link>
       </div>
 
-      {/* Filter Tabs & Search */}
-      <div className="card p-5 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex gap-2 flex-wrap">
-          {[
-            { id: '', label: 'All Records' },
-            { id: 'UNDER_PHARMACIST_REVIEW', label: '⏳ Review Queue' },
-            { id: 'VERIFIED', label: '✓ Verified' },
-            { id: 'DISPENSED', label: '💊 Dispensed' },
-            { id: 'REJECTED', label: '✕ Rejected' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setStatusFilter(tab.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
-                statusFilter === tab.id
-                  ? 'bg-teal-600 text-white border-teal-600 shadow-sm'
-                  : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+      {/* Sub-Tab Navigation */}
+      <div className="subtab-bar shadow-2xs flex-wrap">
+        <button
+          onClick={() => setActiveTab('all')}
+          className={`subtab-btn ${activeTab === 'all' ? 'active' : ''}`}
+        >
+          <FileText className="w-4 h-4 text-emerald-600" />
+          <span>Active Prescriptions ({prescriptions.length})</span>
+        </button>
 
-        <div className="w-full sm:w-72">
+        <button
+          onClick={() => setActiveTab('review')}
+          className={`subtab-btn ${activeTab === 'review' ? 'active' : ''}`}
+        >
+          <Clock className="w-4 h-4 text-amber-500" />
+          <span>Review Queue ({prescriptions.filter(p => ['UNDER_PHARMACIST_REVIEW', 'UPLOADED', 'AI_ANALYZING', 'pending'].includes(p.status)).length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('verified')}
+          className={`subtab-btn ${activeTab === 'verified' ? 'active' : ''}`}
+        >
+          <ShieldCheck className="w-4 h-4 text-cyan-600" />
+          <span>Verified & Approved ({prescriptions.filter(p => ['VERIFIED', 'verified'].includes(p.status)).length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('dispensed')}
+          className={`subtab-btn ${activeTab === 'dispensed' ? 'active' : ''}`}
+        >
+          <CheckCircle2 className="w-4 h-4 text-purple-600" />
+          <span>Dispensed Invoices ({prescriptions.filter(p => ['DISPENSED', 'dispensed'].includes(p.status)).length})</span>
+        </button>
+      </div>
+
+      {/* Search Input */}
+      <div className="card p-4 sm:p-5 flex items-center gap-3 border border-slate-200 shadow-xs">
+        <div className="relative flex-1">
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
           <input
-            type="text"
-            placeholder="🔍 Search doctor, patient, or notes..."
+            placeholder="Search by doctor name, patient name, or prescription ID..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full"
+            onChange={e => setSearchTerm(e.target.value)}
+            className="pl-10 text-xs sm:text-sm py-2 rounded-xl"
           />
         </div>
       </div>
 
-      {/* Table */}
-      <div className="card overflow-hidden shadow-xs">
+      {/* Prescription Table */}
+      <div className="card overflow-hidden border border-slate-200/90 shadow-sm">
         {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="animate-spin rounded-full h-10 w-10 border-4 border-teal-500 border-t-transparent" />
+          <div className="flex flex-col items-center justify-center py-20 space-y-3">
+            <div className="animate-spin rounded-full h-10 w-10 border-4 border-emerald-500 border-t-transparent" />
+            <p className="text-xs font-bold text-slate-400">Loading prescription queue...</p>
           </div>
-        ) : prescriptions.length === 0 ? (
+        ) : filteredPrescriptions.length === 0 ? (
           <div className="text-center py-20 text-slate-400 space-y-3">
-            <span className="text-5xl block">📋</span>
-            <p className="font-bold text-base text-slate-700">No prescriptions found</p>
-            <p className="text-xs text-slate-400">Try adjusting your status filter or search query</p>
+            <FileText className="w-12 h-12 text-slate-300 mx-auto" />
+            <p className="text-base font-bold text-slate-700">No Prescriptions Found</p>
+            <p className="text-xs text-slate-400 max-w-sm mx-auto">
+              No prescription records matched your selected criteria.
+            </p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -127,116 +182,104 @@ export default function Prescriptions() {
                 <tr>
                   <th>Prescription ID & Patient</th>
                   <th>Prescribing Doctor</th>
-                  <th>Detected Medicines</th>
-                  <th>AI Confidence</th>
+                  <th>Detected Formulations</th>
+                  <th>OCR Confidence</th>
                   <th>Date</th>
                   <th>Status</th>
-                  <th className="text-right">Actions</th>
+                  <th className="text-right">Action</th>
                 </tr>
               </thead>
-              <tbody>
-                {prescriptions.map((p) => {
+              <tbody className="divide-y divide-slate-100">
+                {filteredPrescriptions.map(p => {
                   const statusCfg = STATUS_CONFIG[p.status] || {
                     label: p.status,
-                    color: 'bg-slate-100 text-slate-800',
+                    color: 'badge-info',
                     icon: '📋',
                   };
                   const confidence = p.aiAnalysis?.overallConfidence;
                   const isVerified = p.status === 'VERIFIED' || p.status === 'verified';
-                  const isDispensed = p.status === 'DISPENSED' || p.status === 'dispensed';
 
                   return (
-                    <tr key={p._id} className="hover:bg-teal-50/20 transition-colors">
+                    <tr key={p._id} className="hover:bg-slate-50/80 transition-colors">
                       <td>
-                        <div className="space-y-0.5">
-                          <span className="font-mono text-xs font-bold text-teal-800 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">
+                        <div className="space-y-1">
+                          <span className="font-mono text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                             #{p._id.slice(-6).toUpperCase()}
                           </span>
-                          <p className="font-bold text-sm text-slate-900 mt-1">{p.customer?.name || 'Walk-in Patient'}</p>
-                          <p className="text-xs text-slate-400 font-mono">{p.customer?.phone || 'No phone recorded'}</p>
+                          <p className="font-bold text-sm text-slate-900">{p.customer?.name || 'Walk-in Patient'}</p>
+                          <p className="text-[11px] text-slate-400">{p.customer?.phone || 'No phone recorded'}</p>
                         </div>
                       </td>
+
                       <td>
                         <p className="font-bold text-xs text-slate-800">
-                          {p.doctorName || 'Dr. Unspecified'}
+                          {p.doctorName || 'Pending Doctor Extraction'}
                         </p>
-                        <p className="text-[11px] text-slate-400">{p.notes ? p.notes.slice(0, 30) + '...' : 'Prescription'}</p>
+                        <p className="text-[10px] text-slate-400 mt-0.5">{p.notes || 'General consultation'}</p>
                       </td>
+
                       <td>
-                        <div className="flex flex-wrap gap-1.5 max-w-xs">
-                          {p.prescribedMedicines?.slice(0, 3).map((m, i) => (
-                            <span
-                              key={i}
-                              className="inline-block px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200"
-                            >
-                              {m.medicineName || m.medicine?.name || 'Medicine'}
-                            </span>
-                          ))}
-                          {p.prescribedMedicines?.length > 3 && (
-                            <span className="inline-block px-2 py-0.5 rounded-lg bg-teal-50 text-teal-700 text-xs font-bold border border-teal-200">
-                              +{p.prescribedMedicines.length - 3} more
-                            </span>
+                        <div className="space-y-1">
+                          <span className="text-xs font-bold text-slate-800">
+                            {p.prescribedMedicines?.length || 0} formulation{p.prescribedMedicines?.length === 1 ? '' : 's'}
+                          </span>
+                          {p.prescribedMedicines?.[0] && (
+                            <p className="text-[11px] text-slate-500 truncate max-w-xs">
+                              {p.prescribedMedicines[0].medicineName}
+                              {p.prescribedMedicines.length > 1 && ` (+${p.prescribedMedicines.length - 1} more)`}
+                            </p>
                           )}
                         </div>
                       </td>
+
                       <td>
-                        {confidence !== undefined && confidence !== null ? (
-                          <span
-                            className={`inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full ${
-                              confidence >= 0.9
-                                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                                : confidence >= 0.7
-                                ? 'bg-amber-100 text-amber-800 border border-amber-300'
-                                : 'bg-rose-100 text-rose-800 border border-rose-300'
-                            }`}
-                          >
-                            <span>{Math.round(confidence * 100)}%</span>
+                        {confidence ? (
+                          <span className="badge badge-success text-[10px] font-black">
+                            {(confidence * 100).toFixed(0)}% High OCR
                           </span>
                         ) : (
-                          <span className="text-slate-400 text-xs font-medium">Pending AI</span>
+                          <span className="badge badge-info text-[10px] font-bold">Manual Check</span>
                         )}
                       </td>
-                      <td className="text-xs text-slate-600 font-medium whitespace-nowrap">
+
+                      <td className="text-xs text-slate-500">
                         {new Date(p.date || p.createdAt).toLocaleDateString('en-IN', {
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric',
                         })}
                       </td>
+
                       <td>
-                        <span
-                          className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full ${statusCfg.color}`}
-                        >
+                        <span className={`badge ${statusCfg.color} text-[10px] font-black`}>
                           <span>{statusCfg.icon}</span>
                           <span>{statusCfg.label}</span>
                         </span>
                       </td>
+
                       <td className="text-right">
-                        <div className="inline-flex items-center gap-2">
+                        <div className="flex items-center justify-end gap-2">
                           <Link
                             to={`/prescriptions/${p._id}/review`}
-                            className="btn-primary text-xs px-3.5 py-1.5 rounded-xl font-bold shadow-xs whitespace-nowrap"
+                            className="btn-primary text-xs py-1.5 px-3 rounded-xl font-bold shadow-2xs"
                           >
-                            Review ✍️
+                            <span>Review & Verify</span>
                           </Link>
-
-                          {isVerified && !isDispensed && (
+                          {isVerified && (
                             <Link
-                              to={`/billing?prescriptionId=${p._id}&customerId=${p.customer?._id || ''}&customerName=${encodeURIComponent(p.customer?.name || '')}`}
-                              className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-xs whitespace-nowrap"
+                              to={`/billing?prescriptionId=${p._id}`}
+                              className="p-1.5 text-slate-500 hover:text-emerald-700 hover:bg-slate-100 rounded-lg transition-colors"
+                              title="Dispense in POS"
                             >
-                              Bill 🧾
+                              <ShoppingCart className="w-4 h-4" />
                             </Link>
                           )}
-
                           <button
-                            type="button"
-                            onClick={() => handleDeletePrescription(p._id, p.customer?.name || p.doctorName)}
-                            className="btn-danger-outline whitespace-nowrap"
-                            title="Delete this prescription"
+                            onClick={() => handleDeletePrescription(p._id, p.doctorName)}
+                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                            title="Delete record"
                           >
-                            <span>🗑️</span>
-                            <span>Delete</span>
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                       </td>
