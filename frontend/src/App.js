@@ -31,6 +31,7 @@ import CustomerPrescriptions from './pages/customer/CustomerPrescriptions';
 import CustomerUploadPrescription from './pages/customer/CustomerUploadPrescription';
 import CustomerPurchases from './pages/customer/CustomerPurchases';
 import CustomerProfile from './pages/customer/CustomerProfile';
+import CustomerStore from './pages/customer/CustomerStore';
 
 const StaffRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -131,6 +132,8 @@ function AppRoutes() {
       {/* Customer Portal Routes */}
       <Route element={<CustomerRoute><CustomerLayout /></CustomerRoute>}>
         <Route path="/customer/dashboard" element={<CustomerDashboard />} />
+        <Route path="/customer/store" element={<CustomerStore />} />
+        <Route path="/customer/medicines" element={<CustomerStore />} />
         <Route path="/customer/prescriptions" element={<CustomerPrescriptions />} />
         <Route path="/customer/upload" element={<CustomerUploadPrescription />} />
         <Route path="/customer/purchases" element={<CustomerPurchases />} />

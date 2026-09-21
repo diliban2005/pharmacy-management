@@ -10,6 +10,9 @@ const {
   getCustomerPurchases,
   getCustomerInvoice,
   deleteCustomerPrescription,
+  getCatalog,
+  getCustomerVerifiedPrescriptions,
+  checkoutOrder,
 } = require('../controllers/customerPortalController');
 const { protect, authorize } = require('../middleware/auth');
 
@@ -49,9 +52,12 @@ router.use(protect, authorize('customer'));
 
 router.post('/prescriptions/upload', upload.single('prescriptionImage'), uploadPrescription);
 router.get('/prescriptions', getCustomerPrescriptions);
+router.get('/prescriptions/verified', getCustomerVerifiedPrescriptions);
 router.get('/prescriptions/:id', getCustomerPrescription);
 router.delete('/prescriptions/:id', deleteCustomerPrescription);
 router.get('/purchases', getCustomerPurchases);
 router.get('/purchases/:id', getCustomerInvoice);
+router.get('/catalog', getCatalog);
+router.post('/orders/checkout', checkoutOrder);
 
 module.exports = router;

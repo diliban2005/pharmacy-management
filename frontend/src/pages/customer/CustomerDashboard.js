@@ -96,17 +96,50 @@ export default function CustomerDashboard() {
         </div>
       </div>
 
+      {/* Direct Medicine Purchase Banner */}
+      <div className="bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-blue-500/10 border border-teal-200/80 rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center text-2xl shadow-xs shrink-0">
+            💊
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-base font-extrabold text-slate-900">Direct Medicine Purchase Available</h2>
+              <span className="badge badge-success text-[10px]">NEW</span>
+            </div>
+            <p className="text-xs text-slate-600 mt-1 max-w-xl leading-relaxed">
+              Order Over-The-Counter (OTC) fever, pain, and skin relief medications instantly without a prescription, or select Schedule H drugs with your verified doctor's prescription.
+            </p>
+          </div>
+        </div>
+        <Link
+          to="/customer/store"
+          className="btn-primary text-xs px-5 py-2.5 rounded-xl font-bold whitespace-nowrap shadow-xs hover:scale-105 transition-transform shrink-0"
+        >
+          Shop Medicines Online 🛍️
+        </Link>
+      </div>
+
       {/* Quick Actions */}
       <div className="card p-6">
         <h2 className="text-base font-bold text-slate-800 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          <Link
+            to="/customer/store"
+            className="p-4 rounded-2xl bg-gradient-to-b from-teal-500 to-teal-600 text-white flex flex-col items-center justify-center text-center transition-all group shadow-sm hover:shadow-md hover:scale-102"
+          >
+            <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">💊</span>
+            <span className="text-sm font-bold">Order Medicines</span>
+            <span className="text-[11px] text-teal-100 mt-0.5">OTC & Rx Store</span>
+          </Link>
+
           <Link
             to="/customer/upload"
-            className="p-4 rounded-2xl bg-teal-50 hover:bg-teal-100 border border-teal-200 flex flex-col items-center justify-center text-center transition-all group shadow-sm"
+            className="p-4 rounded-2xl bg-teal-50 hover:bg-teal-100 border border-teal-200 flex flex-col items-center justify-center text-center transition-all group shadow-2xs"
           >
             <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">📤</span>
-            <span className="text-sm font-bold text-teal-900">Upload Prescription</span>
-            <span className="text-xs text-teal-600 mt-0.5">JPG, PNG, PDF</span>
+            <span className="text-sm font-bold text-teal-900">Upload Rx</span>
+            <span className="text-xs text-teal-600 mt-0.5">AI Digitization</span>
           </Link>
 
           <Link
@@ -114,8 +147,8 @@ export default function CustomerDashboard() {
             className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-center transition-all group"
           >
             <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">📋</span>
-            <span className="text-sm font-bold text-slate-800">View Prescriptions</span>
-            <span className="text-xs text-slate-500 mt-0.5">Track status timeline</span>
+            <span className="text-sm font-bold text-slate-800">Prescriptions</span>
+            <span className="text-xs text-slate-500 mt-0.5">Status timeline</span>
           </Link>
 
           <Link
@@ -123,13 +156,13 @@ export default function CustomerDashboard() {
             className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-center transition-all group"
           >
             <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">🧾</span>
-            <span className="text-sm font-bold text-slate-800">Purchase History</span>
-            <span className="text-xs text-slate-500 mt-0.5">Invoices & receipts</span>
+            <span className="text-sm font-bold text-slate-800">Purchases</span>
+            <span className="text-xs text-slate-500 mt-0.5">Invoices & bills</span>
           </Link>
 
           <Link
             to="/customer/profile"
-            className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-center transition-all group"
+            className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-center transition-all group col-span-2 sm:col-span-1"
           >
             <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">👤</span>
             <span className="text-sm font-bold text-slate-800">My Profile</span>

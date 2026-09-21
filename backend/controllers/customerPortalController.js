@@ -1,6 +1,7 @@
 const Prescription = require('../models/Prescription');
 const Sale = require('../models/Sale');
 const Customer = require('../models/Customer');
+const Medicine = require('../models/Medicine');
 const aiPrescriptionService = require('../services/aiPrescriptionService');
 const medicineMatchingService = require('../services/medicineMatchingService');
 const fairnessAuditService = require('../services/fairnessAuditService');
@@ -270,6 +271,271 @@ exports.deleteCustomerPrescription = async (req, res) => {
 
     res.json({ success: true, message: 'Prescription deleted successfully' });
   } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Browse medicine catalog for customer portal
+// @route   GET /api/customer/catalog
+// @access  Private (Customer only)
+exports.getCatalog = async (req, res) => {
+  try {
+    const { search, category, type, sort } = req.query;
+    const filter = { isActive: true };
+
+    if (category && category !== 'All') {
+      filter.category = category;
+    }
+
+    if (type === 'otc') {
+      filter.requiresPrescription = false;
+      filter.scheduleType = { $nin: ['SCHEDULE_H', 'SCHEDULE_H1', 'SCHEDULE_X'] };
+    } else if (type === 'rx') {
+      filter.$or = [
+        { requiresPrescription: true },
+        { scheduleType: { $in: ['SCHEDULE_H', 'SCHEDULE_H1', 'SCHEDULE_X'] } },
+      ];
+    }
+
+    if (search && search.trim()) {
+      const regex = new RegExp(search.trim(), 'i');
+      filter.$or = [
+        { name: regex },
+        { genericName: regex },
+        { therapeuticClass: regex },
+        { description: regex },
+      ];
+    }
+
+    let sortOption = { name: 1 };
+    if (sort === 'price_asc') sortOption = { sellingPrice: 1 };
+    if (sort === 'price_desc') sortOption = { sellingPrice: -1 };
+    if (sort === 'stock') sortOption = { quantity: -1 };
+
+    const medicines = await Medicine.find(filter).sort(sortOption);
+
+    res.json({
+      success: true,
+      count: medicines.length,
+      data: medicines,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Get customer's verified prescriptions for checkout authorization
+// @route   GET /api/customer/prescriptions/verified
+// @access  Private (Customer only)
+exports.getCustomerVerifiedPrescriptions = async (req, res) => {
+  try {
+    const customerId = req.user._id;
+    const verified = await Prescription.find({
+      customer: customerId,
+      status: { $in: ['VERIFIED', 'verified', 'DISPENSED', 'dispensed'] },
+    })
+      .select('_id doctorName date status prescribedMedicines createdAt')
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      data: verified,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Customer orders medicines directly (with prescription enforcement for Rx drugs)
+// @route   POST /api/customer/orders/checkout
+// @access  Private (Customer only)
+exports.checkoutOrder = async (req, res) => {
+  try {
+    const customerId = req.user._id;
+    const { items, paymentMethod = 'UPI', shippingAddress, prescriptionId } = req.body;
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Your cart is empty. Please add at least one medicine.',
+      });
+    }
+
+    // Retrieve and validate each medicine
+    const medicineIds = items.map((i) => i.medicineId || i._id);
+    const dbMedicines = await Medicine.find({ _id: { $in: medicineIds }, isActive: true });
+    const medMap = new Map(dbMedicines.map((m) => [m._id.toString(), m]));
+
+    const saleItems = [];
+    const rxFlaggedMedicines = [];
+    let subtotal = 0;
+
+    for (const item of items) {
+      const id = (item.medicineId || item._id).toString();
+      const med = medMap.get(id);
+
+      if (!med) {
+        return res.status(400).json({
+          success: false,
+          message: `Medicine with ID ${id} not found or inactive.`,
+        });
+      }
+
+      const qty = parseInt(item.quantity, 10);
+      if (isNaN(qty) || qty <= 0) {
+        return res.status(400).json({
+          success: false,
+          message: `Invalid quantity for ${med.name}.`,
+        });
+      }
+
+      if (med.quantity < qty) {
+        return res.status(400).json({
+          success: false,
+          message: `Insufficient stock for "${med.name}". Available: ${med.quantity}, Requested: ${qty}.`,
+        });
+      }
+
+      // Check if medicine requires prescription
+      const isRx =
+        med.requiresPrescription === true ||
+        ['SCHEDULE_H', 'SCHEDULE_H1', 'SCHEDULE_X'].includes(med.scheduleType);
+
+      if (isRx) {
+        rxFlaggedMedicines.push(med.name);
+      }
+
+      const unitPrice = med.sellingPrice;
+      const totalPrice = Number((unitPrice * qty).toFixed(2));
+      subtotal += totalPrice;
+
+      saleItems.push({
+        medicine: med._id,
+        medicineName: med.name,
+        quantity: qty,
+        unitPrice,
+        totalPrice,
+      });
+    }
+
+    // Prescription validation rule:
+    // If any items are flagged as Rx / Schedule H, a verified prescription is mandatory!
+    let activePrescription = null;
+    if (rxFlaggedMedicines.length > 0) {
+      if (!prescriptionId) {
+        return res.status(400).json({
+          success: false,
+          requiresPrescription: true,
+          flaggedMedicines: rxFlaggedMedicines,
+          message: `Prescription Required: The following medicine(s) are classified as Schedule H / Prescription Drugs: ${rxFlaggedMedicines.join(
+            ', '
+          )}. Please select a verified prescription or upload one to proceed with purchase.`,
+        });
+      }
+
+      // Verify the prescription belongs to this customer and is verified
+      activePrescription = await Prescription.findOne({
+        _id: prescriptionId,
+        customer: customerId,
+      });
+
+      if (!activePrescription) {
+        return res.status(400).json({
+          success: false,
+          message: 'The selected prescription does not exist or does not belong to your account.',
+        });
+      }
+
+      const validStatuses = ['VERIFIED', 'verified', 'DISPENSED', 'dispensed'];
+      if (!validStatuses.includes(activePrescription.status)) {
+        return res.status(400).json({
+          success: false,
+          message: `Prescription #${activePrescription._id.toString().slice(-6).toUpperCase()} is currently in status "${activePrescription.status}". A verified prescription approved by a licensed pharmacist is required before dispensing Schedule H medications.`,
+        });
+      }
+    }
+
+    // Apply 5% online store health discount
+    const discountPercent = 5;
+    const discountAmount = Number(((subtotal * discountPercent) / 100).toFixed(2));
+    const totalAmount = Number((subtotal - discountAmount).toFixed(2));
+
+    // Decrement stock for all purchased medicines
+    for (const item of saleItems) {
+      await Medicine.findByIdAndUpdate(item.medicine, {
+        $inc: { quantity: -item.quantity },
+      });
+    }
+
+    // Construct delivery address note
+    const addressDetails = shippingAddress
+      ? `${shippingAddress.addressLine || ''}, ${shippingAddress.city || ''} ${shippingAddress.state || ''} - ${shippingAddress.pincode || ''} (Phone: ${shippingAddress.phone || req.user.phone || ''})`
+      : req.user.address || 'Standard Customer Delivery';
+
+    // Create Sale record
+    const sale = await Sale.create({
+      customer: customerId,
+      customerName: req.user.name,
+      items: saleItems,
+      subtotal: Number(subtotal.toFixed(2)),
+      discount: discountPercent,
+      tax: 0,
+      totalAmount,
+      paymentMethod: ['Cash', 'Card', 'UPI', 'Insurance'].includes(paymentMethod)
+        ? paymentMethod
+        : 'UPI',
+      paymentStatus: 'paid',
+      prescription: activePrescription ? activePrescription._id : null,
+      notes: `Online Pharmacy Order • Deliver to: ${addressDetails}`,
+      date: new Date(),
+    });
+
+    // Update customer's total purchases and update address if provided
+    const customerUpdate = {
+      $inc: { totalPurchases: totalAmount },
+    };
+    if (shippingAddress?.addressLine && (!req.user.address || req.user.address.length < 5)) {
+      customerUpdate.$set = { address: addressDetails };
+    }
+    await Customer.findByIdAndUpdate(customerId, customerUpdate);
+
+    // If prescription was used and was VERIFIED, mark it as DISPENSED
+    if (activePrescription && ['VERIFIED', 'verified'].includes(activePrescription.status)) {
+      await Prescription.findByIdAndUpdate(activePrescription._id, {
+        status: 'DISPENSED',
+      });
+    }
+
+    // Audit trail logging
+    try {
+      await fairnessAuditService.logAudit({
+        prescriptionId: activePrescription ? activePrescription._id : null,
+        action: 'CUSTOMER_PURCHASE',
+        aiConfidence: 1.0,
+        performedByName: req.user.name,
+        performedByRole: 'customer',
+        details: {
+          invoiceId: sale.invoiceId,
+          totalAmount,
+          itemCount: saleItems.length,
+          items: saleItems.map((i) => `${i.medicineName} x ${i.quantity}`),
+          rxRequired: rxFlaggedMedicines.length > 0,
+          rxMedicines: rxFlaggedMedicines,
+          deliveryAddress: addressDetails,
+          paymentMethod,
+        },
+      });
+    } catch (auditErr) {
+      console.error('Audit log warning:', auditErr.message);
+    }
+
+    res.status(201).json({
+      success: true,
+      message: 'Order placed successfully! Your medicines are being prepared for dispatch.',
+      data: sale,
+    });
+  } catch (error) {
+    console.error('Checkout error:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };

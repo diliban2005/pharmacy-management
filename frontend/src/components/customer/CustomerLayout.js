@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { CustomerCartProvider, useCustomerCart } from '../../context/CustomerCartContext';
+import CustomerCartDrawer from './CustomerCartDrawer';
 import HowItWorksModal from '../common/HowItWorksModal';
 
-export default function CustomerLayout() {
+function CustomerLayoutInner() {
   const { user, logout } = useAuth();
+  const { cartCount, openCart } = useCustomerCart();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
@@ -15,6 +18,7 @@ export default function CustomerLayout() {
   };
 
   const navLinks = [
+    { to: '/customer/store', label: 'Order Medicines', icon: '💊' },
     { to: '/customer/dashboard', label: 'Dashboard', icon: '🏠' },
     { to: '/customer/prescriptions', label: 'My Prescriptions', icon: '📋' },
     { to: '/customer/upload', label: 'Upload Prescription', icon: '📤' },
@@ -25,12 +29,12 @@ export default function CustomerLayout() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Top Navbar */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/customer/dashboard" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white font-black text-xl shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white font-black text-xl shadow-xs">
                 Rx
               </div>
               <div>
@@ -50,7 +54,7 @@ export default function CustomerLayout() {
                   className={({ isActive }) =>
                     `px-3 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
                       isActive
-                        ? 'bg-teal-50 text-teal-700 shadow-sm'
+                        ? 'bg-teal-50 text-teal-700 shadow-2xs font-bold'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     }`
                   }
@@ -61,11 +65,26 @@ export default function CustomerLayout() {
               ))}
             </nav>
 
-            {/* Customer User Info & Logout */}
+            {/* Customer User Info, Cart & Logout */}
             <div className="hidden md:flex items-center gap-3">
+              {/* Cart Button */}
+              <button
+                onClick={openCart}
+                className="relative px-3 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 flex items-center gap-2 font-bold text-xs transition-all shadow-2xs"
+                title="View your shopping cart"
+              >
+                <span className="text-sm">🛒</span>
+                <span>Cart</span>
+                {cartCount > 0 && (
+                  <span className="bg-teal-600 text-white rounded-full px-1.5 py-0.5 text-[10px] font-black">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+
               <button
                 onClick={() => setHowItWorksOpen(true)}
-                className="px-2.5 py-1.5 rounded-lg text-xs font-bold text-teal-700 bg-teal-50 hover:bg-teal-100 border border-teal-200 flex items-center gap-1.5 transition-colors shadow-2xs"
+                className="px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center gap-1.5 transition-colors"
                 title="Learn how prescription verification works"
               >
                 <span>💡</span>
@@ -81,6 +100,7 @@ export default function CustomerLayout() {
                   <p className="text-xs text-slate-400 leading-none">{user?.email}</p>
                 </div>
               </div>
+
               <button
                 onClick={handleLogout}
                 className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
@@ -89,8 +109,21 @@ export default function CustomerLayout() {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Header Actions */}
             <div className="md:hidden flex items-center gap-2">
+              <button
+                onClick={openCart}
+                className="relative p-2 rounded-xl bg-teal-50 text-teal-800 border border-teal-200 flex items-center justify-center"
+                aria-label="Open cart"
+              >
+                <span className="text-base">🛒</span>
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-teal-600 text-white rounded-full w-4 h-4 text-[9px] font-black flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 rounded-lg text-slate-600 hover:bg-slate-100"
@@ -112,7 +145,7 @@ export default function CustomerLayout() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
                   `block px-3 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2.5 ${
-                    isActive ? 'bg-teal-50 text-teal-700' : 'text-slate-600 hover:bg-slate-50'
+                    isActive ? 'bg-teal-50 text-teal-700 font-bold' : 'text-slate-600 hover:bg-slate-50'
                   }`
                 }
               >
@@ -120,6 +153,23 @@ export default function CustomerLayout() {
                 <span>{label}</span>
               </NavLink>
             ))}
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openCart();
+              }}
+              className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-teal-700 bg-teal-50 flex items-center justify-between"
+            >
+              <span className="flex items-center gap-2">
+                <span>🛒</span>
+                <span>Shopping Cart</span>
+              </span>
+              <span className="bg-teal-600 text-white rounded-full px-2 py-0.5 text-xs">
+                {cartCount} items
+              </span>
+            </button>
+
             <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
               <span className="text-xs font-medium text-slate-500">{user?.name}</span>
               <button
@@ -138,6 +188,9 @@ export default function CustomerLayout() {
         <Outlet />
       </main>
 
+      {/* Slide-out Cart Drawer */}
+      <CustomerCartDrawer />
+
       {/* Customer Portal Footer */}
       <footer className="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-400">
         <p>© 2026 PharmaCare Smart Pharmacy • Licensed Pharmacy Operations & AI-Assisted Patient Services</p>
@@ -146,5 +199,13 @@ export default function CustomerLayout() {
       {/* Guide Modal */}
       <HowItWorksModal isOpen={howItWorksOpen} onClose={() => setHowItWorksOpen(false)} />
     </div>
+  );
+}
+
+export default function CustomerLayout() {
+  return (
+    <CustomerCartProvider>
+      <CustomerLayoutInner />
+    </CustomerCartProvider>
   );
 }

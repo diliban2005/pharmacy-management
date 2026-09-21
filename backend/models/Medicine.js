@@ -24,10 +24,27 @@ const medicineSchema = new mongoose.Schema(
     quantity: { type: Number, required: true, min: 0, default: 0 },
     lowStockThreshold: { type: Number, default: 10 },
     description: { type: String },
+    requiresPrescription: { type: Boolean, default: false },
+    scheduleType: {
+      type: String,
+      enum: ['OTC', 'SCHEDULE_H', 'SCHEDULE_H1', 'SCHEDULE_X', 'SCHEDULE_G', 'GENERAL'],
+      default: 'OTC',
+    },
+    therapeuticClass: { type: String, default: 'General' },
+    dosageInstructions: { type: String },
+    sideEffects: { type: String },
+    imageUrl: { type: String },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
+
+medicineSchema.virtual('isPrescriptionRequired').get(function () {
+  return (
+    this.requiresPrescription === true ||
+    ['SCHEDULE_H', 'SCHEDULE_H1', 'SCHEDULE_X'].includes(this.scheduleType)
+  );
+});
 
 medicineSchema.virtual('isLowStock').get(function () {
   return this.quantity <= this.lowStockThreshold;
@@ -44,5 +61,6 @@ medicineSchema.virtual('isExpiringSoon').get(function () {
 });
 
 medicineSchema.set('toJSON', { virtuals: true });
+medicineSchema.set('toObject', { virtuals: true });
 
 module.exports = mongoose.model('Medicine', medicineSchema);
