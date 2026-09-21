@@ -36,6 +36,16 @@ app.use('/api/ai-audit', require('./routes/aiAudit'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'OK', message: 'AI-Assisted Pharmacy API running' }));
 
+// Serve frontend build in production (e.g. Render unified deployment)
+const frontendBuild = path.join(__dirname, '../frontend/build');
+if (fs.existsSync(frontendBuild)) {
+  app.use(express.static(frontendBuild));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next();
+    res.sendFile(path.join(frontendBuild, 'index.html'));
+  });
+}
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
